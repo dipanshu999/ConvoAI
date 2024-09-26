@@ -3,9 +3,11 @@ import axios from 'axios'
 
 export default function App() {
 
-  const[answer,setAnswer]=useState([])
+  const[answer,setAnswer]=useState([]);
+  const[Query,setQuery]=useState([]);
 
-  async function GenerateAnswer(){
+
+  async function GenerateAnswer(Query){
       console.log('Loading ...');
 
       try{
@@ -14,9 +16,10 @@ export default function App() {
 
         method:"post",
         data:{
-          "contents":[{"parts":[{"text":"tienen se acabe"}]}]
+          "contents":[{"parts":[{"text":`${Query}`}]}]
         }
       })
+      
       const data=response['data']['candidates'][0]['content']['parts'][0]['text']
       setAnswer((prev)=>[...prev,data])
     }
@@ -33,9 +36,16 @@ export default function App() {
   return (
     <div>
       <p>AI chat app</p>
-      <button onClick={GenerateAnswer} className='bg-yellow-400 p-2'>Generate</button>
-      
-      {/* <p className='text-blue-500 text-lg'>{answer}</p> */}
+
+      <form onSubmit={(e)=>e.preventDefault()}>
+        <input type="text" placeholder='Enter your query' className='border' onChange={(e)=>setQuery(()=>e.target.value)}/>
+        <button onClick={()=>GenerateAnswer(Query)} className='bg-yellow-400 p-2'>Generate</button>
+      </form>
+      {
+        
+          answer.map((item,index)=> (<> <p key={index} className='text-blue-500 text-lg'>{item}</p> <br /> <br /> </>))
+         
+      }
     </div>
   )
 }
