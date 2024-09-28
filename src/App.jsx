@@ -11,9 +11,6 @@ export default function App() {
 
  
   async function GenerateAnswer(Query) {
-    console.log('Loading ...');
-
-    
     setQuestion((prev) => [...prev, Query]);
 
     try {
@@ -27,8 +24,6 @@ export default function App() {
       });
 
       const data = response.data.candidates[0].content.parts[0].text;
-      
-      
       setAnswer((prev) => [...prev, data]);
 
     } catch (err) {
@@ -44,32 +39,29 @@ export default function App() {
   }, [answer]);
 
   return (
-    <div className='p-4'>
-      <p>AI chat app</p>
+    <div className=' flex'>
+           
+      <div className='bg-gray-700  h-screen w-[20vw] '>
+        <p className='text-white'>Nav</p>
+      </div>
 
-      {/* Input form */}
-      <form onSubmit={(e) => e.preventDefault()}>
-        <input
-          type="text"
-          placeholder='Enter your query'
-          className='border'
-          value={Query}
-          onChange={(e) => setQuery(e.target.value)}
-        />
-
-        <button onClick={() => GenerateAnswer(Query)} disabled={Loading} className={`bg-yellow-400 p-2 ${Loading ? 'cursor-not-allowed':'null' }  ` }>
-          Generate
-        </button>
-      </form>
+    <div  className="form-response w-[80vw] h-screen">
 
       {/* Display questions and corresponding answers */}
+      <div className="extra-div w-[80%] mx-auto">
+
       <div className='mt-4'>
         {question.map((item, index) => (
             <div key={index} className="mb-4">
-              <h1 className='text-red-500'>{item}</h1>
+              
+              <div className='flex justify-end'>
+                <div className='bg-blue-600 max-w-[30%] min-w-[10%] p-2 '>
+                  <h1 className='text-white '>{item}</h1>
+                </div>
+              </div>
 
               {(answer[index] ?? !setLoading) ? (
-                <ReactMarkdown className='text-blue-500 text-lg mb-4'>
+                <ReactMarkdown className='text-black text-lg mb-4 w-[60%] bg-green-200'>
                   {answer[index]}
                 </ReactMarkdown>
               ) : (
@@ -80,6 +72,26 @@ export default function App() {
         
         }
       </div>
+
+      <div className="form  bottom-6 fixed right-52 shadow-xl shadow-gray-300 border flex justify-between rounded-xl w-[50%] overflow-hidden bg-white">
+            <input
+                  type="text"
+                  placeholder='Enter your query '
+                  className='w-[90%] p-3 text-lg  focus:outline-none '
+                  value={Query}
+                  onChange={(e) => setQuery(e.target.value)}
+                />
+
+            <div className='w-14 h-14 '>
+              <button onClick={() => GenerateAnswer(Query)} disabled={Loading} className={`bg-yellow-400 h-full p-2  ${Loading ? 'cursor-not-allowed':'null' }  rounded-full ` }>
+                GOO
+              </button>
+            </div>
+      </div>
+
+      </div>
+      </div>
+      
     </div>
   );
 }
