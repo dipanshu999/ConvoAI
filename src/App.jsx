@@ -41,28 +41,28 @@ export default function App() {
   return (
     <div className=' flex'>
            
-      <div className='bg-gray-700  h-screen w-[20vw] '>
+      <div className='bg-gray-700  fixed   h-full w-[20vw] '>
         <p className='text-white'>Nav</p>
       </div>
 
-    <div  className="form-response w-[80vw] h-screen">
+    <div  className="form-response w-[80vw] h-screen ml-[20vw] mb">
 
       {/* Display questions and corresponding answers */}
-      <div className="extra-div w-[80%] mx-auto">
+      <div className="extra-div w-[60%] mx-auto">
 
-      <div className='mt-4'>
+      <div className='mt-8 mb10 w-full mx-auto'>
         {question.map((item, index) => (
             <div key={index} className="mb-4">
               
-              <div className='flex justify-end'>
-                <div className='bg-blue-600 max-w-[30%] min-w-[10%] p-2 '>
+              <div className='flex justify-end mt-8'>
+                <div className='bg-blue-600 max-w-[50%] min-w-[10%] p-3 rounded-md '>
                   <h1 className='text-white '>{item}</h1>
                 </div>
               </div>
 
               {(answer[index] ?? !setLoading) ? (
-                <ReactMarkdown className='text-black text-lg mb-4 w-[60%] bg-green-200'>
-                  {answer[index]}
+                <ReactMarkdown className='text-black rounded-xl mt-8 p-3 text-lg mb-4 w-[85%] bg-green-200'>
+                  {answer[index].slice(0,500)}
                 </ReactMarkdown>
               ) : (
                 <p>Loading...</p>
