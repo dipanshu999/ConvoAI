@@ -1,67 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useContext } from 'react';
+
 import ReactMarkdown from 'react-markdown';
+import { ChatContext } from './utils/Context';
+
 
 export default function App() {
-  const [answer, setAnswer] = useState([]);   
-  const [question, setQuestion] = useState([]);  
-  const [Query, setQuery] = useState('');   
-  const [Loading, setLoading] = useState(false);   
 
+  const {GenerateAnswer ,answer,Loading,question,Query,setQuery}=useContext(ChatContext)
 
- 
-  async function GenerateAnswer(Query) {
-    setQuestion((prev) => [...prev, Query]);
-
-    try {
-      setLoading(true)
-      const response = await axios({
-        url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyA_ANFzW0lwaYaJKE_dnUnYu6vTPsjV7AU",
-        method: "post",
-        data: {
-          "contents": [{ "parts": [{ "text": `${Query}` }] }]
-        }
-      });
-
-      const data = response.data.candidates[0].content.parts[0].text;
-      setAnswer((prev) => [...prev, data]);
-
-    } catch (err) {
-      setLoading(false)
-      console.log("Error occurred", err);
-    }finally{
-      setLoading(false);
-    }
+  if(!answer){
+    return <>Loading ...</>
   }
-
-  useEffect(() => {
-    console.log(answer);
-  }, [answer]);
 
   return (
     <div className=' flex'>
            
-      <div className='bg-gray-700  fixed   h-full w-[20vw] '>
+      <div className=' bg-black  fixed   h-full w-[20vw] '>
         <p className='text-white'>Nav</p>
       </div>
 
-    <div  className="form-response w-[80vw] h-screen ml-[20vw] mb">
+    <div  className="form-response w-[80vw]  ml-[20vw] bg-gray-700 mb">
 
-      {/* Display questions and corresponding answers */}
-      <div className="extra-div w-[60%] mx-auto">
+      {/* Display questions and corresponding answers */} 
+      <div className="extra-div w-[70%] mx-auto shadow-xl shadow-white  rounded-xl mt-6 ">  {/* for setting width */}
 
-      <div className='mt-8 mb10 w-full mx-auto'>
+      <div className='mt-8 mb10 min-h-screen w-full mx-auto text-lg mb-20 py-1 px-4'>
         {question.map((item, index) => (
-            <div key={index} className="mb-4">
+            <div key={index} className="mb-4 ">
               
               <div className='flex justify-end mt-8'>
-                <div className='bg-blue-600 max-w-[50%] min-w-[10%] p-3 rounded-md '>
-                  <h1 className='text-white '>{item}</h1>
+                <div className=' max-w-[50%] min-w-[10%] p-3 rounded-md  bg-gradient-to-r  from-[#12D8FA] to-[#A6FFCB]'>
+                  <h1 className=' text-white'>{item}</h1>
                 </div>
               </div>
 
-              {(answer[index] ?? !setLoading) ? (
-                <ReactMarkdown className='text-black rounded-xl mt-8 p-3 text-lg mb-4 w-[85%] bg-green-200'>
+              {(answer[index] ?? !Loading) ? (
+                <ReactMarkdown className='text-white text-xl rounded-xl mt-8 p-3  mb-4 w-[85%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>
                   {answer[index].slice(0,500)}
                 </ReactMarkdown>
               ) : (
@@ -73,18 +47,18 @@ export default function App() {
         }
       </div>
 
-      <div className="form  bottom-6 fixed right-52 shadow-xl shadow-gray-300 border flex justify-between rounded-xl w-[50%] overflow-hidden bg-white">
+      <div className="form  bottom-6 fixed right-52 shadow-xl shadow-gray-700 border flex justify-between items-center rounded-xl w-[50%] overflow-hidden bg-white">
             <input
                   type="text"
                   placeholder='Enter your query '
-                  className='w-[90%] p-3 text-lg  focus:outline-none '
+                  className='w-[90%] p-4 text-lg backdrop-blur-sm focus:outline-none '
                   value={Query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
 
-            <div className='w-14 h-14 '>
-              <button onClick={() => GenerateAnswer(Query)} disabled={Loading} className={`bg-yellow-400 h-full p-2  ${Loading ? 'cursor-not-allowed':'null' }  rounded-full ` }>
-                GOO
+            <div className='w-12 h-12 mx-auto mr-6'>
+              <button onClick={() => GenerateAnswer(Query)} disabled={Loading} className={`bg-yellow-400 border-2 border-black h-full w-full flex items-center justify-center ${Loading ? 'cursor-not-allowed':'null' }  rounded-full ` }>
+                <img src="../arrow.png" className='w-9 h-9' />
               </button>
             </div>
       </div>
