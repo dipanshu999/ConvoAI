@@ -21,7 +21,7 @@ export default function Context({ children }) {
         url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyA_ANFzW0lwaYaJKE_dnUnYu6vTPsjV7AU",
         method: "post",
         data: {
-          "contents": [{ "parts": [{ "text": `${Query}` }] }]
+          "contents": [{ "parts": [{ "text": `${Query}`}] }]
         }
       });
 
