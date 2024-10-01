@@ -6,11 +6,26 @@ import { ChatContext } from '../utils/Context';
 export default function Response() {
 
   const {answer,Loading,question}=useContext(ChatContext);
-  const [expandedIndex, setExpandedIndex] = useState(null); // State to track expanded answer
 
-  const handleExpand = (index) => {
-    setExpandedIndex(index); // Only expand, no collapse functionality
+  const [expandedIndexes, setExpandedIndexes] = useState([]);
+
+  const toggleExpand = (index) => {
+    setExpandedIndexes(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index)
+        : [...prev, index]
+    );
   };
+
+  const truncateText = (text, index) => {
+    const words = text.split(' ');
+    if (words.length <= 100 || expandedIndexes.includes(index)) {
+      return text;
+    }
+    return words.slice(0, 100).join(' ') + '...';
+  };
+
+
 
   return (
     <>
@@ -28,21 +43,20 @@ export default function Response() {
                 <div className="relative">
 
                     <ReactMarkdown className='text-white text-xl rounded-xl mt-8 p-3  mb-4 w-[85%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>
-                      {answer[index].slice(0,500)+'...more'}
+                    {truncateText(answer[index] || '', index)}
                     </ReactMarkdown>
-{/* 
-                    {answer[index].length > 500 && expandedIndex !== index && (
-                      <button
-                        onClick={() => handleExpand(index)}
-                        className='text-blue-500 hover:underline'>
-                        ...more
+
+                    {(answer[index] || '').split(' ').length > 100 && (
+                      <button 
+                        onClick={() => toggleExpand(index)} className=" underline font-bold absolute bottom-3 right-40 text-xl hover:underline focus:outline-none" >
+                        {expandedIndexes.includes(index) ? '. . .Show less' : '...more'}
                       </button>
-                    )} */}
+              )}
 
                 </div>
                 
               ) : (
-                <p>Loading...</p>
+                <p className='text-white text-xl rounded-xl mt-8 p-3  mb-4 w-[20%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>Loading...</p>
               )}
             </div>
             ))
