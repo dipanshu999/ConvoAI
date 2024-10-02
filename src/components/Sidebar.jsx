@@ -16,7 +16,7 @@ export default function Sidebar() {
         <p className='text-white'>Chat history</p>
 
         {
-          question.map((item,index)=><div className=''><h1 key={index} className='text-white '>{item}</h1></div> )
+          question.map((item,index)=><div className='w-full'><h1 key={index} className='text-white '>{item.split(' ').slice(0,6).join(' ')+' ...'}</h1></div> )
         }
 
       </div>
