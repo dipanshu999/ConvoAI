@@ -42,7 +42,7 @@ export default function Response() {
               {(answer[index] ?? !Loading) ? (
                 <div className="relative">
 
-                    <ReactMarkdown className='text-white text-xl rounded-xl mt-8 p-3  mb-4 w-[85%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>
+                    <ReactMarkdown className='text-black text-xl rounded-xl mt-8 p-3  mb-4 w-[85%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>
                     {truncateText(answer[index] || '', index)}
                     </ReactMarkdown>
 
