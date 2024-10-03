@@ -1,11 +1,9 @@
-import React, { useContext } from 'react';
-
-
-import { ChatContext } from './utils/Context';
+import React from 'react';
 import Sidebar from './components/Sidebar';
-import Response from './components/Response';
-import Form from './components/Form';
-
+import 'react-router-dom'
+import { Route, Routes } from 'react-router-dom';
+import Chat from './components/Chat';
+import Home from './components/Home';
 
 export default function App() {
 
@@ -14,13 +12,11 @@ export default function App() {
     <div className=' flex'>
            
       <Sidebar/>
-
-    <div  className="form-response w-[80vw]  ml-[20vw] bg-gray-700 mb">
-      <div className="extra-div w-[70%] mx-auto shadow-xl shadow-white bg-slate-900  rounded-xl mt-6 ">  {/* for setting width */}
-        <Response/>
-        <Form/>
-      </div>
-      </div>
+     
+      <Routes>
+        <Route path='/chat' element={<Chat/>} />
+        <Route path='/' element={<Home/>} />
+      </Routes>
       
     </div>
   );
