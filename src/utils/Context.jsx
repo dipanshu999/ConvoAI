@@ -1,4 +1,4 @@
-import React, { createContext,useState } from 'react';
+import React, { createContext,useEffect,useState } from 'react';
 import axios from 'axios';
 // Create the context
 const ChatContext = createContext();
@@ -9,6 +9,7 @@ export default function Context({ children }) {
 
   const [answer, setAnswer] = useState([]);   
   const [question, setQuestion] = useState([]);  
+  const [Chat, setChat] = useState([]);  
   const [Query, setQuery] = useState('');   
   const [Loading, setLoading] = useState(false);  
 
@@ -28,6 +29,8 @@ export default function Context({ children }) {
       const data = response.data.candidates[0].content.parts[0].text;
       setAnswer((prev) => [...prev, data]);
 
+      setChat((prev) => [...prev, { question: Query, answer: data }]);
+
     } catch (err) {
       setLoading(false)
       console.log("Error occurred", err);
@@ -36,6 +39,9 @@ export default function Context({ children }) {
     }
   }
 
+  useEffect(()=>{
+    console.log(Chat)
+  },[Chat])
 
   return (
     <ChatContext.Provider value={{GenerateAnswer,answer,Loading,question,Query,setQuery}}>
