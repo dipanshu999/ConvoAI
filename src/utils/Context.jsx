@@ -1,51 +1,72 @@
-import React, { createContext,useEffect,useState } from 'react';
+import React, { createContext, useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-// Create the context
+import { nanoid } from 'nanoid';
+
 const ChatContext = createContext();
+
 export default function Context({ children }) {
+  const [chats, setChats] = useState({});
+  const [chatHistory, setChatHistory] = useState([]);
+  const [currentChatId, setCurrentChatId] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  const [answer, setAnswer] = useState([]);   
-  const [question, setQuestion] = useState([]);  
-  const [Chat, setChat] = useState([]);  
-  const [Query, setQuery] = useState('');   
-  const [Loading, setLoading] = useState(false);  
-
-  async function GenerateAnswer(Query) {
-    setQuestion((prev) => [...prev, Query]);
-
+  const generateAnswer = useCallback(async (query, chatId = null) => {
+    setLoading(true);
     try {
-      setLoading(true)
       const response = await axios({
         url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyA_ANFzW0lwaYaJKE_dnUnYu6vTPsjV7AU",
         method: "post",
         data: {
-          "contents": [{ "parts": [{ "text": `${Query}`}] }]
+          "contents": [{ "parts": [{ "text": query }] }]
         }
       });
 
-      const data = response.data.candidates[0].content.parts[0].text;
-      setAnswer((prev) => [...prev, data]);
-
-      setChat((prev) => [...prev, { question: Query, answer: data }]);
-
+      const answer = response.data.candidates[0].content.parts[0].text;
+      
+      if (!chatId) {
+        chatId = nanoid();
+        setChatHistory(prev => [...prev, { id: chatId, title: query }]);
+      }
+      
+      setChats(prev => ({
+        ...prev,
+        [chatId]: [...(prev[chatId] || []), { question: query, answer }]
+      }));
+      
+      setCurrentChatId(chatId);
+      return chatId;
     } catch (err) {
-      setLoading(false)
-      console.log("Error occurred", err);
-    }finally{
+      console.error("Error occurred", err);
+    } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
-  useEffect(()=>{
-    console.log(Chat)
-  },[Chat])
+  const startNewChat = useCallback(() => {
+    setCurrentChatId(null);
+  }, []);
+
+  const loadChat = useCallback((chatId) => {
+    if (chats[chatId]) {
+      setCurrentChatId(chatId);
+    } else {
+      console.error(`Chat with ID ${chatId} not found`);
+    }
+  }, [chats]);
 
   return (
-    <ChatContext.Provider value={{GenerateAnswer,answer,Loading,question,Query,setQuery}}>
+    <ChatContext.Provider value={{
+      generateAnswer,
+      loading,
+      chatHistory,
+      currentChatId,
+      startNewChat,
+      loadChat,
+      currentChat: chats[currentChatId] || []
+    }}>
       {children}
     </ChatContext.Provider>
   );
 }
 
-// Optional: Export the context for use in other components
-  export { ChatContext };
+export { ChatContext };

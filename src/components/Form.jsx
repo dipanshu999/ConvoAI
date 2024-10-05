@@ -1,19 +1,20 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ChatContext } from '../utils/Context';
+import { useNavigate } from 'react-router-dom';
 
 export default function Form() {
-  const { GenerateAnswer, Loading, Query, setQuery } = useContext(ChatContext);
+  const { generateAnswer, loading, currentChatId } = useContext(ChatContext);
+  const [query, setQuery] = useState('');
+  const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault(); // Prevent form from refreshing the page
-    if (Query.trim() && !Loading) {
-      GenerateAnswer(Query);
-    }
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      handleSubmit(e);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (query.trim() && !loading) {
+      const newChatId = await generateAnswer(query, currentChatId);
+      if (newChatId && newChatId !== currentChatId) {
+        navigate(`/chat/${newChatId}`);
+      }
+      setQuery('');
     }
   };
 
@@ -23,16 +24,14 @@ export default function Form() {
         type="text"
         placeholder='Enter your query'
         className='w-[90%] p-4 text-lg backdrop-blur-sm focus:outline-none'
-        value={Query}
+        value={query}
         onChange={(e) => setQuery(e.target.value)}
-        onKeyDown={handleKeyDown}
       />
-
       <div className='w-12 h-12 mx-auto mr-6'>
         <button
           type="submit"
-          disabled={Loading}
-          className={`bg-yellow-400 border-2 border-black h-full w-full flex items-center justify-center ${Loading ? 'cursor-not-allowed' : 'null'} rounded-full`}
+          disabled={loading}
+          className={`bg-yellow-400 border-2 border-black h-full w-full flex items-center justify-center ${loading ? 'cursor-not-allowed' : 'null'} rounded-full`}
         >
           <img src="../arrow.png" className='w-9 h-9' alt="Submit" />
         </button>
