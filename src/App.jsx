@@ -6,7 +6,7 @@ import Home from './components/Home';
 
 export default function App() {
   return (
-    <div className='flex min-h-screen'>
+    <div className='flex min-h-screen '>
       <Sidebar />
       <Routes>
         <Route path='/chat' element={<Chat />} />

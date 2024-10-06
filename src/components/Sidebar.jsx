@@ -17,7 +17,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className='bg-black fixed h-full w-[20vw]'>
+    <div className='bg-black fixed h-full w-[20vw] p-2'>
       <div className='Logo w-full h-52 '>
         <p className='text-white'>Nav</p>
       </div>
@@ -28,7 +28,7 @@ export default function Sidebar() {
         {chatHistory.map((chat) => (
           <div key={chat.id} className='w-full mb-2'>
             <button 
-              className='text-white hover:bg-gray-700 p-2 block w-full text-left'
+              className='text-white text-xl hover:bg-gray-700  block w-full text-left'
               onClick={() => handleChatClick(chat.id)}
             >
               {chat.title.charAt(0).toUpperCase() + chat.title.slice(1).split(' ').slice(0, 6).join(' ') + ' ...'}
