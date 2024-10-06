@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Home() {
   return (
-    <div className='min-h-screen'>
+    <div className=''>
        <Link className='ml-[22em]' to={'/chat'} >CHat</Link>
     </div>
   )

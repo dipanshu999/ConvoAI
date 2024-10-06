@@ -18,11 +18,11 @@ export default function Sidebar() {
 
   return (
     <div className='bg-black fixed h-full w-[20vw]'>
-      <div className='Logo w-full h-52 border'>
+      <div className='Logo w-full h-52 '>
         <p className='text-white'>Nav</p>
       </div>
 
-      <div className="chat-history w-full border mt-2 h-full overflow-y-auto">
+      <div className="chat-history w-full mt-2 h-full overflow-y-auto">
         <button onClick={handleNewChat} className='text-white bg-blue-500 p-2 rounded mb-4'>New Chat</button>
         
         {chatHistory.map((chat) => (
@@ -31,7 +31,7 @@ export default function Sidebar() {
               className='text-white hover:bg-gray-700 p-2 block w-full text-left'
               onClick={() => handleChatClick(chat.id)}
             >
-              {(chat.title[0].toUpperCase()).split(' ').slice(0, 6).join(' ') + ' ...'}
+              {chat.title.charAt(0).toUpperCase() + chat.title.slice(1).split(' ').slice(0, 6).join(' ') + ' ...'}
             </button>
           </div>
         ))}
