@@ -17,13 +17,14 @@ export default function Sidebar() {
   }
 
   return (
-    <div className='bg-black fixed h-full w-[20vw] p-2'>
+    <div className='bg-black fixed h-full w-[20vw] p-2  hidden tab:inline'>
       <div className='Logo w-full h-52 '>
         <p className='text-white'>Nav</p>
       </div>
 
       <div className="chat-history w-full mt-2 h-full overflow-y-auto">
         <button onClick={handleNewChat} className='text-white bg-blue-500 p-2 rounded mb-4'>New Chat</button>
+        <button onClick={()=>navigate('/')} className='text-white bg-green-500 p-2 rounded mb-4'>Home</button>
         
         {chatHistory.map((chat) => (
           <div key={chat.id} className='w-full mb-2'>
