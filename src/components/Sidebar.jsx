@@ -17,7 +17,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className='bg-black fixed h-full w-[20vw] p-2  hidden tab:inline'>
+    <div className='bg-black fixed h-full w-[20vw] p-2  hidden tab:inline shadow-xl shadow-slate-500'>
       <div className='Logo w-full h-52 '>
         <p className='text-white'>Nav</p>
       </div>
@@ -32,7 +32,7 @@ export default function Sidebar() {
               className='text-white text-xl hover:bg-gray-700  block w-full text-left'
               onClick={() => handleChatClick(chat.id)}
             >
-              {chat.title.charAt(0).toUpperCase() + chat.title.slice(1).split(' ').slice(0, 6).join(' ') + ' ...'}
+              { chat?.title && chat.title.split(' ').slice(0, 5).join(' ').replace(/^./, str => str.toUpperCase()) + (chat.title.split(' ').length >= 5 ? ' ...' : '') }
             </button>
           </div>
         ))}

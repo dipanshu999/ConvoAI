@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Home() {
   return (
-    <div className=' border-green-400 border w-screen '>
+    <div className=' w-screen '>
 
       <div className="hello mx-auto w-[20rem] mt-6">
         <img src="../hello.gif" alt="" />

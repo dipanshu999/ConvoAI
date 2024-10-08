@@ -22,14 +22,17 @@ export default function Response() {
     return words.slice(0, 100).join(' ') + '...';
   };
 
-  return (
-    <div className='mt-8 min-h-screen w-full mx-auto text-lg mb-20 py-1 px-4'>
+   return (
+    <>
+     { currentChat && currentChat.length>0 ?
+      
+    (<div className='mt-8 min-h-screen w-full mx-auto text-lg mb-20 py-1 px-4'>
 
       {currentChat.map((item, index) => (
         
         <div key={index} className="mb-4">
           <div className='flex justify-end mt-8'>
-            <div className='max-w-[50%] min-w-[10%] p-3 rounded-md bg-gradient-to-r from-[#12D8FA] to-[#A6FFCB]'>
+            <div className='max-w-[60%] min-w-[10%] p-3 rounded-md bg-gradient-to-r from-[#12D8FA] to-[#A6FFCB]'>
               <h1 className='text-white'>{item.question}</h1>
             </div>
           </div>
@@ -57,6 +60,11 @@ export default function Response() {
       {loading && (
         <p className='text-white text-xl rounded-xl mt-8 p-3 mb-4 w-[20%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>Loading...</p>
       )}
+    </div> )
+    
+      :
+    <div className=' flex justify-center '> 
+      <img src="../chat.gif" alt="" className='w-[18rem] mt-40 mb-40 rounded-xl' />
     </div>
-  )
+  } </> )
 }
