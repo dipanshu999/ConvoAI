@@ -17,17 +17,22 @@ export default function Sidebar() {
   }
 
   return (
-    <div className='bg-black fixed h-full w-[20vw] p-2  hidden tab:inline shadow-xl shadow-slate-500'>
+    <div className='bg-black fixed h-full w-[20vw] p-3  hidden tab:inline shadow-xl shadow-slate-500'>
       <div className='Logo w-full h-52 '>
         <p className='text-white'>Nav</p>
       </div>
 
+        <hr />
       <div className="chat-history w-full mt-2 h-full overflow-y-auto">
-        <button onClick={handleNewChat} className='text-white bg-blue-500 p-2 rounded mb-4'>New Chat</button>
-        <button onClick={()=>navigate('/')} className='text-white bg-green-500 p-2 rounded mb-4'>Home</button>
+
+        <div className="btn flex justify-between pr-14 px-4">
+          <button onClick={handleNewChat} className='text-white bg-blue-500 p-2 rounded mb-4 text-lg'>New Chat</button>
+          <button onClick={()=>navigate('/')} className=' bg-orange-500 w-12  p-2 rounded-full mb-4'><img src="../home.svg" alt="" /></button>
+        </div>
+
         
-        {chatHistory.map((chat) => (
-          <div key={chat.id} className='w-full mb-2'>
+        { chatHistory.length>0 ? (chatHistory.map((chat) => (
+          <div key={chat.id} className='w-full mb-2 bg-slate-700 p-2  rounded-md hover:shadow-md h-12 overflow-hidden hover:scale-95 duration-200 hover:shadow-slate-400'>
             <button 
               className='text-white text-xl hover:bg-gray-700  block w-full text-left'
               onClick={() => handleChatClick(chat.id)}
@@ -35,7 +40,7 @@ export default function Sidebar() {
               { chat?.title && chat.title.split(' ').slice(0, 5).join(' ').replace(/^./, str => str.toUpperCase()) + (chat.title.split(' ').length >= 5 ? ' ...' : '') }
             </button>
           </div>
-        ))}
+        ))) : <div className='bg-slate-700 py-24 mt-6 rounded-xl'> <p className='text-red-500 font-bold text-[1.7em] text-center'>!! No chat history</p> </div>}
       </div>
     </div>
   )
