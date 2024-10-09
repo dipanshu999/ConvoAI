@@ -8,10 +8,21 @@ export default function Context({ children }) {
   const [chats, setChats] = useState({});
   const [chatHistory, setChatHistory] = useState([]);
   const [currentChatId, setCurrentChatId] = useState(null);
-  const [loading, setLoading] = useState(false);
 
   const generateAnswer = useCallback(async (query, chatId = null) => {
-    setLoading(true);
+    if (!chatId) {
+      chatId = nanoid();
+      setChatHistory(prev => [...prev, { id: chatId, title: query }]);
+    }
+
+    // Add the question with a loading flag
+    setChats(prev => ({
+      ...prev,
+      [chatId]: [...(prev[chatId] || []), { question: query, answer: '', loading: true }]
+    }));
+    
+    setCurrentChatId(chatId);
+
     try {
       const response = await axios({
         url: "https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=AIzaSyA_ANFzW0lwaYaJKE_dnUnYu6vTPsjV7AU",
@@ -22,23 +33,22 @@ export default function Context({ children }) {
       });
 
       const answer = response.data.candidates[0].content.parts[0].text;
-      
-      if (!chatId) {
-        chatId = nanoid();
-        setChatHistory(prev => [...prev, { id: chatId, title: query }]);
-      }
-      
+
+      // Update the specific chat item with the answer and remove loading flag
       setChats(prev => ({
         ...prev,
-        [chatId]: [...(prev[chatId] || []), { question: query, answer }]
+        [chatId]: prev[chatId].map((item, index) => {
+          if (index === prev[chatId].length - 1) {
+            return { ...item, answer, loading: false };
+          }
+          return item;
+        })
       }));
-      
-      setCurrentChatId(chatId);
+
       return chatId;
     } catch (err) {
       console.error("Error occurred", err);
-    } finally {
-      setLoading(false);
+      // Handle error, remove loading flag if needed
     }
   }, []);
 
@@ -57,7 +67,6 @@ export default function Context({ children }) {
   return (
     <ChatContext.Provider value={{
       generateAnswer,
-      loading,
       chatHistory,
       currentChatId,
       startNewChat,

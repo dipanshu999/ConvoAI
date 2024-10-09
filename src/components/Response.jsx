@@ -3,7 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import { ChatContext } from '../utils/Context';
 
 export default function Response() {
-  const { currentChat, loading } = useContext(ChatContext);
+  const { currentChat } = useContext(ChatContext);
   const [expandedIndexes, setExpandedIndexes] = useState([]);
 
   const toggleExpand = (index) => {
@@ -25,11 +25,15 @@ export default function Response() {
   return (
     <>
       {/* When there's no chat or loading, render the gif */}
-      {(!currentChat || currentChat.length === 0) && !loading ? (
+      {(!currentChat || currentChat.length === 0) ? (
         <div className='flex justify-center'>
           <img src="../chat.gif" alt="Chat placeholder" className='w-[18rem] mt-40 mb-40 rounded-xl' />
         </div>
-      ) : (
+      ) 
+      
+      : 
+      
+      (
         <div className='mt-8 min-h-screen w-full mx-auto text-lg mb-20 py-1 px-4'>
           {currentChat.map((item, index) => (
             <div key={index} className="mb-4">
@@ -40,8 +44,8 @@ export default function Response() {
                 </div>
               </div>
 
-              {/* Render the answer if available, or show loading message */}
-              {loading ? (
+              {/* Render the answer if available, or show loading message for the current question only */}
+              {item.loading ? (
                 <p className='text-white text-xl rounded-xl mt-8 p-3 mb-4 w-[20%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>Loading...</p>
               ) : (
                 item.answer && (
@@ -50,7 +54,7 @@ export default function Response() {
                       {truncateText(item.answer, index)}
                     </ReactMarkdown>
 
-                    {item.answer.split(' ').length > 100 && (
+                    {item.answer.split(' ').length > 100 && (    // ....show more and ..... show less
                       <button
                         onClick={() => toggleExpand(index)}
                         className="underline font-bold absolute bottom-3 right-40 text-xl hover:underline focus:outline-none"
