@@ -17,10 +17,10 @@ export default function Sidebar() {
   }
 
   return (
-    <div className='bg-black fixed h-full w-[20vw] p-3  hidden tab:inline shadow-xl shadow-slate-500'>
-      <div className='Logo w-full h-40 '>
-        <img src='../logo.jpg' className='h-20 rounded-xl mx-auto mt-2'/>
-        <p className='text-white justify-center text-center text-2xl font-semibold mt-3'>Convo AI</p>
+    <div className='bg-black fixed h-full tab:w-[30vw] lap:w-[20vw] p-3  hidden tab:inline shadow-xl shadow-slate-500'>
+      <div className='Logo w-full h-40  ' >
+        <img src='../logo.jpg' className='h-20 rounded-xl mx-auto mt-2 hover:cursor-pointer' onClick={()=>navigate('/') }/>
+        <p className='text-white justify-center text-center text-2xl font-semibold mt-3 hover:cursor-pointer' onClick={()=>navigate('/') }>Convo AI</p>
       </div>
 
         <hr />

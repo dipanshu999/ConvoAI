@@ -20,8 +20,8 @@ export default function Chat() {
   }, [id, loadChat, currentChatId, chatHistory, navigate])
 
   return (
-    <div className="form-response w-[80vw] ml-[20vw] bg-gray-700 ">
-      <div className="chat-Area w-[70%] mx-auto shadow-xl shadow-white bg-slate-950 rounded-xl  ">
+    <div className="form-response  lap:w-[80vw] ml-[20vw] bg-gray-700 ">
+      <div className="chat-Area tab:w-[90%]  lap:w-[70%] mx-auto shadow-xl shadow-white bg-slate-950 rounded-xl  ">
         <Response/>
         <Form/>
       </div>
