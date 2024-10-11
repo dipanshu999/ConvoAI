@@ -27,7 +27,7 @@ export default function Response() {
       {/* When there's no chat or loading, render the gif */}
       {(!currentChat || currentChat.length === 0) ? (
         <div className='flex justify-center'>
-          <img src="../chat.gif" alt="Chat placeholder" className='w-[18rem] mt-40 mb-40 rounded-xl' />
+          <img src="../chat.gif" alt="Chat placeholder" className='w-[15rem] tab:w-[18rem] mt-20 tab:mt-40 mb-40 rounded-xl' />
         </div>
       ) 
       
@@ -39,18 +39,18 @@ export default function Response() {
             <div key={index} className="mb-4">
               {/* Render the question first */}
               <div className='flex justify-end mt-8'>
-                <div className='max-w-[60%] min-w-[10%] p-3 rounded-md bg-gradient-to-r from-[#12D8FA] to-[#A6FFCB]'>
+                <div className='max-w-[70%] mob:max-w-[60%] min-w-[10%] p-3 rounded-md bg-gradient-to-r from-[#12D8FA] to-[#A6FFCB]'>
                   <h1 className=' font-medium'>{item.question}</h1>
                 </div>
               </div>
 
               {/* Render the answer if available, or show loading message for the current question only */}
               {item.loading ? (
-                <p className='text-white text-xl rounded-xl mt-8 p-3 mb-4 w-[20%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>Loading...</p>
+                <p className='text-white text-xl rounded-xl mt-8 p-3 mb-4 w-[30%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>Loading...</p>
               ) : (
                 item.answer && (
                   <div className="relative">
-                    <ReactMarkdown className=' text-xl font-medium rounded-xl mt-8 p-3 mb-4 w-[85%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>
+                    <ReactMarkdown className=' text-xl font-medium rounded-xl mt-8 p-3 mb-4 max-w-[90%] bg-gradient-to-tr from-[#FC488B] to-yellow-400'>
                       {truncateText(item.answer, index)}
                     </ReactMarkdown>
 
