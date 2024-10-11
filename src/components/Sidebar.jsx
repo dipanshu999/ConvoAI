@@ -17,7 +17,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className='bg-black fixed h-full tab:w-[30vw] lap:w-[20vw] p-3  hidden tab:inline shadow-xl shadow-slate-500'>
+    <div className='bg-black fixed h-full tab:w-[26vw] lap:w-[23vw] p-3  hidden tab:inline shadow-xl shadow-slate-500'>
       <div className='Logo w-full h-40  ' >
         <img src='../logo.jpg' className='h-20 rounded-xl mx-auto mt-2 hover:cursor-pointer' onClick={()=>navigate('/') }/>
         <p className='text-white justify-center text-center text-2xl font-semibold mt-3 hover:cursor-pointer' onClick={()=>navigate('/') }>Convo AI</p>
@@ -26,7 +26,7 @@ export default function Sidebar() {
         <hr />
       <div className="chat-history w-full mt-2 h-full overflow-y-auto">
 
-        <div className="btn flex justify-between pr-14 px-4">
+        <div className="btn flex justify-between lap:pr-8 px-4">
           <button onClick={handleNewChat} className='text-white bg-blue-500 p-2 rounded mb-4 text-lg'>New Chat</button>
           <button onClick={()=>navigate('/')} className=' bg-orange-500 w-12  p-2 rounded-full mb-4'><img src="../home.svg" alt="" /></button>
         </div>

@@ -10,7 +10,9 @@ export default {
           'xsm':'400px',
           'mob':'650px',
           'tab':'800px',
-          'lap':'1000px'
+          'lap':'1000px',
+          'tab1':'950px',
+          'lap1':'1150px',
         },
     },
   },

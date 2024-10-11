@@ -19,7 +19,7 @@ export default function Form() {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="form bottom-6 fixed right-52 shadow-xl shadow-gray-700 border flex justify-between items-center rounded-xl w-[50%] overflow-hidden bg-white">
+    <form onSubmit={handleSubmit} className="Form shadow-xl lap1:left-[30rem] lap:left-[24rem] tab1:left-[20rem] tab:left-[18rem] fixed bottom-8 shadow-gray-700 border flex justify-between items-center rounded-xl lap:w-[45%] tab:w-[52%] overflow-hidden bg-white">
       <input
         type="text"
         placeholder='Enter your query'
