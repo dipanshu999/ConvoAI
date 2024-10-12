@@ -3,7 +3,7 @@ import { ChatContext } from '../utils/Context'
 import { useNavigate } from 'react-router-dom'
 
 export default function Sidebar() {
-  const { chatHistory, startNewChat, loadChat } = useContext(ChatContext)
+  const { chatHistory, startNewChat, loadChat,SideToggle } = useContext(ChatContext)
   const navigate = useNavigate()
 
   const handleChatClick = (chatId) => {
@@ -17,8 +17,8 @@ export default function Sidebar() {
   }
 
   return (
-    <div className='bg-black fixed h-full tab:w-[26vw] lap:w-[23vw] p-3  hidden tab:inline shadow-xl shadow-slate-500'>
-      <div className='Logo w-full h-40  ' >
+    <div className={`bg-black ${SideToggle?'z-10':'z-0'}  fixed h-full w-[20vw] tab:w-[26vw] lap:w-[23vw] p-3  hidden tab:inline shadow-xl shadow-slate-500`}>
+      <div className='Logo w-full h-40 ' >
         <img src='../logo.jpg' className='h-20 rounded-xl mx-auto mt-2 hover:cursor-pointer' onClick={()=>navigate('/') }/>
         <p className='text-white justify-center text-center text-2xl font-semibold mt-3 hover:cursor-pointer' onClick={()=>navigate('/') }>Convo AI</p>
       </div>

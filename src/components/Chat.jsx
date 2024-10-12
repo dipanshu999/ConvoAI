@@ -7,7 +7,7 @@ import Form from './Form'
 export default function Chat() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const { loadChat, currentChatId, chatHistory } = useContext(ChatContext)
+  const { loadChat, currentChatId, chatHistory,handleToggle } = useContext(ChatContext)
 
   useEffect(() => {
     if (id && id !== currentChatId) {
@@ -24,6 +24,11 @@ export default function Chat() {
       <div className="chat-Area h-full tab:w-[90%] lap:w-[70%] mx-auto shadow-xl shadow-white bg-slate-950 rounded-xl  ">
         <Response/>
         <Form/>
+
+        <button onClick={handleToggle} className="fixed tab:hidden top-1/2 left-0 bg-yellow-400 shadow-md shadow-slate-700 p-2 rounded-r-full">
+          <img src="../ahead-arrow.png" alt="Menu" className="w-4 h-6 "/>
+        </button>
+
       </div>
     </div>
     

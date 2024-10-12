@@ -8,6 +8,12 @@ export default function Context({ children }) {
   const [chats, setChats] = useState({});
   const [chatHistory, setChatHistory] = useState([]);
   const [currentChatId, setCurrentChatId] = useState(null);
+  const [SideToggle,setSideToggle ] = useState(false);
+
+  const handleToggle=()=>{
+    setSideToggle((prev)=>!prev)
+  }
+  console.log(SideToggle)
 
   const generateAnswer = useCallback(async (query, chatId = null) => {
     if (!chatId) {
@@ -71,7 +77,8 @@ export default function Context({ children }) {
       currentChatId,
       startNewChat,
       loadChat,
-      currentChat: chats[currentChatId] || []
+      currentChat: chats[currentChatId] || [],
+      SideToggle,setSideToggle,handleToggle
     }}>
       {children}
     </ChatContext.Provider>
