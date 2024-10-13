@@ -17,13 +17,14 @@ export default function Sidebar() {
   }
 
   return (
-    <div className={`bg-black ${SideToggle?'block':'hidden'}  fixed h-full w-[20vw] tab:w-[26vw] lap:w-[23vw] p-3 tab:block shadow-xl shadow-slate-500`}>
+    <div className={`bg-black ${SideToggle?'block':'hidden'} z-10 fixed h-full w-[20vw] mob:w-[40vw] tab:w-[26vw] lap:w-[23vw] p-3 tab:block shadow-xl shadow-slate-500`}>
       <div className='Logo w-full h-40 ' >
         <img src='../logo.jpg' className='h-20 rounded-xl mx-auto mt-2 hover:cursor-pointer' onClick={()=>navigate('/') }/>
         <p className='text-white justify-center text-center text-2xl font-semibold mt-3 hover:cursor-pointer' onClick={()=>navigate('/') }>Convo AI</p>
       </div>
 
         <hr />
+
       <div className="chat-history w-full mt-2 h-full overflow-y-auto">
 
         <div className="btn flex justify-between lap:pr-8 px-4">
