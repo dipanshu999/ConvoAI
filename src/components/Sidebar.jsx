@@ -17,7 +17,7 @@ export default function Sidebar() {
   }
 
   return (
-    <div className={`bg-black ${SideToggle?'z-10':'z-0'}  fixed h-full w-[20vw] tab:w-[26vw] lap:w-[23vw] p-3  hidden tab:inline shadow-xl shadow-slate-500`}>
+    <div className={`bg-black ${SideToggle?'block':'hidden'}  fixed h-full w-[20vw] tab:w-[26vw] lap:w-[23vw] p-3 tab:block shadow-xl shadow-slate-500`}>
       <div className='Logo w-full h-40 ' >
         <img src='../logo.jpg' className='h-20 rounded-xl mx-auto mt-2 hover:cursor-pointer' onClick={()=>navigate('/') }/>
         <p className='text-white justify-center text-center text-2xl font-semibold mt-3 hover:cursor-pointer' onClick={()=>navigate('/') }>Convo AI</p>
